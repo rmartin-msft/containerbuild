@@ -22,6 +22,6 @@ jobs:
           username: ${{ secrets.ACR_USERNAME }}
           password: ${{ secrets.ACR_PASSWORD }}
       - run: |
-          docker build ./mywebapp/Dockerfile -t ${{ secrets.REGISTRY_NAME }}.azurecr.io/${{ github.repository }}:${{ github.sha }}     
+          docker build ./mywebapp -t ${{ secrets.REGISTRY_NAME }}.azurecr.io/${{ github.repository }}:${{ github.sha }}     
           docker push ${{ secrets.REGISTRY_NAME }}.azurecr.io/${{ github.repository }}:${{ github.sha }}     
       
