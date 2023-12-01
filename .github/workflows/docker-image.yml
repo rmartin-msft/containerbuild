@@ -19,11 +19,9 @@ jobs:
         uses: azure/docker-login@v1
         with:
           login-server: ${{ secrets.REGISTRY_NAME }}.azurecr.io
-          username: ${{ secrets.REGISTRY_USERNAME }}
-          password: ${{ secrets.REGISTRY_PASSWORD }}
-      - name: Build and push
-        uses: azure/docker-build-push@v1
-        with:
-          azure-container-registry: ${{ secrets.REGISTRY_NAME }}.azurecr.io
-          image: ${{ secrets.REGISTRY_NAME }}.azurecr.io/${{ github.repository }}:latest
-          include-tags: latest
+          username: ${{ secrets.ACR_USERNAME }}
+          password: ${{ secrets.ACR_PASSWORD }}
+      - run: |
+          docker build . -t ${{ secrets.REGISTRY_NAME }}.azurecr.io/sampleapp:${{ github.repository }}
+          docker push ${{ secrets.REGISTRY_NAME }}.azurecr.io/sampleapp:${{ github.sha }}     
+      
